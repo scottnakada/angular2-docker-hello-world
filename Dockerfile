@@ -20,7 +20,7 @@ RUN mkdir -p /quickstart /home/nodejs && \
 WORKDIR /quickstart
 
 # Add build files to /quickstart
-ADD package.json typings.json tsconfig.json systemjs.config.js index.html styles.css /quickstart/
+ADD package.json typings.json tsconfig.json systemjs.config.js index.html styles.css app /quickstart/
 RUN chown -R nodejs:nodejs /quickstart
 # install npm packages as root; but allow nodejs user to install later
 RUN npm install --unsafe-perm=true
