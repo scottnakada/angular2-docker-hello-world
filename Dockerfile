@@ -11,7 +11,7 @@ RUN apt-get update
 RUN apt-get install -y vim
 
 # Create a nodejs account, in nodejs group, with home directory /home/nodejs
-RUN mkdir -p /quickstart /home/nodejs && \
+RUN mkdir -p /quickstart/app /home/nodejs && \
     groupadd -r nodejs && \
     useradd -r -g nodejs -d /home/nodejs -s /sbin/nologin nodejs && \
     chown -R nodejs:nodejs /home/nodejs
@@ -20,7 +20,8 @@ RUN mkdir -p /quickstart /home/nodejs && \
 WORKDIR /quickstart
 
 # Add build files to /quickstart
-ADD package.json typings.json tsconfig.json systemjs.config.js index.html styles.css app /quickstart/
+ADD package.json typings.json tsconfig.json systemjs.config.js index.html styles.css /quickstart/
+ADD app/* /quickstart/app/
 RUN chown -R nodejs:nodejs /quickstart
 # install npm packages as root; but allow nodejs user to install later
 RUN npm install --unsafe-perm=true
