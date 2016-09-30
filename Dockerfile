@@ -1,10 +1,12 @@
 # To build and run with Docker:
 #
-#  $ docker build -t angular2-quickstart .
-#  $ docker run -it --rm -p 3000:3000 -p 3001:3001 -v $(pwd)/app:/quickstart/app angular2-quickstart
+#  $ docker build -t docker-quizzer .
+#  $ docker run -it --rm -p 3000:3000 -p 3001:3001 --name docker-quizzer docker-quizzer
 #
 # Start with a default nodejs image
 FROM node:latest
+
+MAINTAINER Scott Nakada<scottnakada@gmail.com>
 
 # Add some necessary packages
 RUN apt-get update
@@ -25,6 +27,13 @@ ADD app/* /quickstart/app/
 RUN chown -R nodejs:nodejs /quickstart
 # install npm packages as root; but allow nodejs user to install later
 RUN npm install --unsafe-perm=true
+
+######### Setup quizzer app
+WORKDIR /home/nodejs
+RUN git clone https://github.com/scottnakada/quizzer-rc5-start.git
+WORKDIR /home/nodejs/quizzer-rc5-start
+RUN npm install
+RUN chown -R nodejs:nodejs /home/nodejs
 
 # Startup as user nodejs
 USER nodejs
