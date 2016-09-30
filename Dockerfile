@@ -29,5 +29,7 @@ RUN npm install --unsafe-perm=true
 # Startup as user nodejs
 USER nodejs
 
+EXPOSE 3000 3001
+
 # Start the web-server
 CMD npm start
